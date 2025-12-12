@@ -2,7 +2,7 @@
 import { useMemo, useState } from "react";
 import Item from "./item";
 
-export default function ItemList({ items }) {
+export default function ItemList({ items, onItemSelect }) {
   const [sortKey, setSortKey] = useState("name");
   const [sortDir, setSortDir] = useState("asc");
 
@@ -58,19 +58,26 @@ export default function ItemList({ items }) {
           <Button active={sortKey === "name"} onClick={() => onSortClick("name")}>
             Name
           </Button>
-          <Button active={sortKey === "category"} onClick={() => onSortClick("category")}>
+          <Button
+            active={sortKey === "category"}
+            onClick={() => onSortClick("category")}
+          >
             Category
           </Button>
-          <Button active={sortKey === "quantity"} onClick={() => onSortClick("quantity")}>
+          <Button
+            active={sortKey === "quantity"}
+            onClick={() => onSortClick("quantity")}
+          >
             Quantity
           </Button>
           <DirPill />
         </div>
       </div>
+
       <ul className="flex flex-wrap gap-4">
         {sortedItems.map((item) => (
           <li key={item.id}>
-            <Item itemObj={item} />
+            <Item itemObj={item} onSelect={() => onItemSelect(item)} />
           </li>
         ))}
       </ul>
